@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>失業保険(基本手当)シミュレーター|給付額・給付日数を簡単計算</title>
+<meta name="description" content="離職前の給与と勤続年数・離職理由を入力するだけで、失業保険(雇用保険の基本手当)の給付額と給付日数の目安をすぐに計算できます。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XXXXXXXXXX');</script>
+<style>
+  :root{--bg:#F4F6FA;--ink:#1A2333;--accent:#3A5EAB;--accent-soft:#D0DCEF;--line:#CDD4DF;--card:#fff;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;}
+  header{padding:28px 20px 18px;border-bottom:1px solid var(--line);text-align:center;}
+  header h1{font-size:1.4rem;margin:0 0 6px;}
+  header p{margin:0;font-size:0.85rem;color:#5C6878;}
+  main{max-width:640px;margin:0 auto;padding:24px 16px 60px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:20px;}
+  label{display:block;font-weight:600;font-size:0.9rem;margin-bottom:6px;margin-top:18px;}
+  select,input[type=number]{width:100%;padding:12px;border:1px solid var(--line);border-radius:8px;font-size:1rem;background:#FAFBFD;}
+  button#calcBtn{width:100%;margin-top:24px;padding:16px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:1.05rem;font-weight:700;cursor:pointer;}
+  button#calcBtn:hover{background:#2B4A8C;}
+  #result{display:none;margin-top:24px;}
+  .result-main{padding:20px;background:var(--accent-soft);border-radius:12px;text-align:center;}
+  .result-main .amount{font-size:2rem;font-weight:800;color:var(--accent);margin:8px 0;}
+  table.breakdown{width:100%;border-collapse:collapse;margin-top:16px;font-size:0.9rem;}
+  table.breakdown th,table.breakdown td{border:1px solid var(--line);padding:8px 10px;text-align:right;}
+  table.breakdown th{text-align:left;background:#EDF1F8;}
+  .ad-slot{margin:24px auto;min-height:100px;border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;color:#999;font-size:0.75rem;}
+  .disclaimer{font-size:0.75rem;color:#888;margin-top:24px;border-top:1px solid var(--line);padding-top:16px;}
+  footer{text-align:center;font-size:0.75rem;color:#999;padding:20px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>失業保険(基本手当)シミュレーター</h1>
+  <p>離職前の給与・勤続年数・離職理由を入力するだけ。給付額と給付日数の目安がわかります。</p>
+</header>
+<main>
+  <div class="ad-slot"><ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="5555555551" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div class="card">
+    <label for="salary">離職前6ヶ月の月給(平均・税込)</label>
+    <input type="number" id="salary" placeholder="例:30" step="1">
+    <p style="font-size:0.8rem;color:#999;margin:4px 0 0;">単位:万円(残業代・通勤手当含む総支給額)</p>
+
+    <label for="age">離職時の年齢</label>
+    <select id="age">
+      <option value="1">29歳以下</option>
+      <option value="2" selected>30〜44歳</option>
+      <option value="3">45〜59歳</option>
+      <option value="4">60〜64歳</option>
+    </select>
+
+    <label for="years">雇用保険の被保険者期間</label>
+    <select id="years">
+      <option value="1">1年未満</option>
+      <option value="2">1年以上5年未満</option>
+      <option value="3">5年以上10年未満</option>
+      <option value="4">10年以上20年未満</option>
+      <option value="5">20年以上</option>
+    </select>
+
+    <label for="reason">離職理由</label>
+    <select id="reason">
+      <option value="voluntary">自己都合退職</option>
+      <option value="involuntary">会社都合退職(解雇・倒産等)</option>
+    </select>
+
+    <button id="calcBtn">給付額を計算する</button>
+
+    <div id="result">
+      <div class="result-main">
+        <div>1日あたりの基本手当(目安)</div>
+        <div class="amount" id="dailyText">¥0</div>
+      </div>
+      <table class="breakdown">
+        <tr><th>賃金日額の目安</th><td id="rowWage">¥0</td></tr>
+        <tr><th>給付率</th><td id="rowRate">—%</td></tr>
+        <tr><th>給付日数の目安</th><td id="rowDays">—日</td></tr>
+        <tr><th>総給付額の目安</th><td id="rowTotal">¥0</td></tr>
+        <tr><th>給付制限(待機期間後)</th><td id="rowWait">—</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="ad-slot"><ins class="adsbygoogle" style="display:block;width:100%;" data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" data-ad-slot="5555555552" data-ad-format="auto" data-full-width-responsive="true"></ins></div>
+  <div class="disclaimer">
+    本シミュレーターはハローワークの公表資料をもとにした概算計算です。実際の給付額・給付日数は雇用保険の加入期間・離職理由の認定・受給資格の有無等により異なります。正確な金額はお近くのハローワークにてご確認ください。
+  </div>
+</main>
+<footer>© 2026 失業保険シミュレーター | <a href="/privacy.html">プライバシーポリシー</a> | <a href="/about.html">運営者情報</a></footer>
+<script>
+// 給付率テーブル(賃金日額に応じた給付率、厚生労働省公表値の概算)
+function calcRate(wageDay) {
+  if (wageDay <= 5110) return 0.80;
+  if (wageDay <= 12580) return 0.80 - ((wageDay - 5110) / (12580 - 5110)) * (0.80 - 0.50);
+  return 0.50;
+}
+
+// 給付日数テーブル(年齢区分×被保険者期間×離職理由)
+const daysTable = {
+  involuntary: {
+    1: { 1:90,  2:90,  3:120, 4:180, 5:240 },
+    2: { 1:90,  2:90,  3:180, 4:210, 5:240 },
+    3: { 1:90,  2:180, 3:210, 4:240, 5:270 },
+    4: { 1:90,  2:180, 3:210, 4:240, 5:270 }
+  },
+  voluntary: {
+    1: { 1:0,   2:90,  3:90,  4:120, 5:150 },
+    2: { 1:0,   2:90,  3:90,  4:120, 5:150 },
+    3: { 1:0,   2:90,  3:90,  4:150, 5:180 },
+    4: { 1:0,   2:90,  3:90,  4:150, 5:180 }
+  }
+};
+
+document.getElementById('calcBtn').addEventListener('click', function() {
+  const salary = parseFloat(document.getElementById('salary').value);
+  const age = parseInt(document.getElementById('age').value);
+  const years = parseInt(document.getElementById('years').value);
+  const reason = document.getElementById('reason').value;
+
+  if (!salary || salary <= 0) { alert('離職前の月給を入力してください'); return; }
+
+  const monthlyGross = salary * 10000;
+  const wageDay = Math.floor((monthlyGross * 6) / 180);
+  const rate = calcRate(wageDay);
+  const dailyBenefit = Math.floor(wageDay * rate);
+  const days = daysTable[reason][age][years];
+  const total = dailyBenefit * days;
+  const wait = reason === 'voluntary' ? '2ヶ月の給付制限あり(7日間の待機後)' : '7日間の待機のみ';
+
+  document.getElementById('dailyText').textContent = '¥' + dailyBenefit.toLocaleString();
+  document.getElementById('rowWage').textContent = '¥' + wageDay.toLocaleString();
+  document.getElementById('rowRate').textContent = Math.round(rate * 100) + '%';
+  document.getElementById('rowDays').textContent = days > 0 ? days + '日' : '給付なし(被保険者期間不足)';
+  document.getElementById('rowTotal').textContent = total > 0 ? '¥' + total.toLocaleString() : '—';
+  document.getElementById('rowWait').textContent = wait;
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({behavior:'smooth'});
+  if(typeof gtag==='function') gtag('event','calc_shitsugyo',{salary,age,years,reason,daily:dailyBenefit});
+});
+</script>
+</body>
+</html>
